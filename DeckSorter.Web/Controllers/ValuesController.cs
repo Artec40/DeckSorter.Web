@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DeckSorter.Web.Controllers
@@ -20,6 +21,7 @@ namespace DeckSorter.Web.Controllers
 
         // GET api/values. Получить список названий колод.
         [HttpGet]
+        [EnableCors("AnotherPolicy")]
         public ActionResult<IEnumerable<string>> Get()
         {
             return deckCollection.Select(deck => deck.Key).ToArray();
@@ -28,6 +30,7 @@ namespace DeckSorter.Web.Controllers
 
         //GET api/values/getDeck. Получить колоду по имени.
         [HttpGet("getDeck")]
+        [EnableCors("AnotherPolicy")]
         public ActionResult<DeckResponse> GetDeckByName([FromQuery][Required] string deckName)
         {
             if (deckCollection.ContainsKey(deckName))
@@ -59,6 +62,7 @@ namespace DeckSorter.Web.Controllers
 
         // POST api/values. Создать именованную колоду карт.
         [HttpPost]
+        [EnableCors("AnotherPolicy")]
         public ActionResult Post([FromBody] DeckRequest deckRequest)
         {
             if (deckCollection.ContainsKey(deckRequest.Name))
@@ -76,6 +80,7 @@ namespace DeckSorter.Web.Controllers
 
         // PUT api/values/filldeckName. Перетасовать колоду.
         [HttpPut("fill{deckName}")]
+        [EnableCors("AnotherPolicy")]
         public ActionResult Put([FromRoute][Required] string deckName)
         {
             if (deckCollection.ContainsKey(deckName))
@@ -103,6 +108,7 @@ namespace DeckSorter.Web.Controllers
 
         // DELETE api/values/deletedeckName. Удалить колоду карт.
         [HttpDelete("delete{deckName}")]
+        [EnableCors("AnotherPolicy")]
         public ActionResult Delete([FromRoute][Required] string deckName)
         {
             if (deckCollection.ContainsKey(deckName))

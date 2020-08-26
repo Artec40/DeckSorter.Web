@@ -30,7 +30,7 @@ namespace DeckSorter.Web
                 options.AddPolicy("AnotherPolicy",
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:63342")
+                        builder.WithOrigins("*")
                                             .AllowAnyHeader()
                                             .AllowAnyMethod();
                     });
